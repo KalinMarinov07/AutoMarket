@@ -11,7 +11,10 @@
         [Key]
         public int Id { get; set; }
 
+        [ForeignKey(nameof(Model))]
         public int ModelId { get; set; }
+
+        public Model Model { get; set; } = null!;
 
         [Column(TypeName = PriceColumnType)]
         public double Price { get; set; }

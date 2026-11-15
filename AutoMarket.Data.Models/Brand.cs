@@ -12,5 +12,8 @@
         [Required]
         [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
+
+        public virtual ICollection<Model> Models { get; set; }
+            = new HashSet<Model>();
     }
 }
