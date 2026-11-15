@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoMarket.Data\AutoMarket.Data.csproj" />
+    <ProjectReference Include="..\AutoMarket.ViewModels\AutoMarket.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

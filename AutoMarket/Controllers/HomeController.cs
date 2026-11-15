@@ -2,7 +2,7 @@ using AutoMarket.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace AutoMarket.Controllers
+namespace AutoMarket.Web.Controllers
 {
     public class HomeController : Controller
     {

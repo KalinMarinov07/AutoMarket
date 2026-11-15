@@ -1,3 +1,14 @@
 <Solution>
-  <Project Path="AutoMarket/AutoMarket.csproj" />
+  <Folder Name="/Data/">
+    <Project Path="AutoMarket.Data.Models/AutoMarket.Data.Models.csproj" />
+    <Project Path="AutoMarket.Data/AutoMarket.Data.csproj" />
+  </Folder>
+  <Folder Name="/Services/">
+    <Project Path="AutoMarket.Services.Core/AutoMarket.Services.Core.csproj" />
+  </Folder>
+  <Folder Name="/Web/">
+    <Project Path="AutoMarket.ViewModels/AutoMarket.ViewModels.csproj" />
+    <Project Path="AutoMarket/AutoMarket.Web.csproj" />
+  </Folder>
+  <Project Path="AutoMarket.Common/AutoMarket.Common.csproj" />
 </Solution>
