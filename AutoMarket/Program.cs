@@ -1,6 +1,16 @@
+using AutoMarket.Data;
+using Microsoft.EntityFrameworkCore;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+string connectionString = builder.Configuration.GetConnectionString("SqlServerDev")
+                         ?? throw new InvalidOperationException("Connection string 'SqlServerDev' was not found! Please try again");
+
+builder.Services.AddDbContext<AutoMarketDbContext>(opt =>
+{
+    opt.UseSqlServer(connectionString);
+});
+
 builder.Services.AddControllersWithViews();
 
 WebApplication app = builder.Build();
