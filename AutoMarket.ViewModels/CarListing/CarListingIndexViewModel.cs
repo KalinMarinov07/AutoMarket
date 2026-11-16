@@ -11,16 +11,8 @@ namespace AutoMarket.ViewModels.CarListing
 
         public string ModelName { get; set; } = null!;
 
-        public double Price { get; set; }
+        public string Price { get; set; } = null!;
 
-        public string ManufactureDate { get; set; } = null!;
-
-        public int Mileage { get; set; }
-
-        public string VehicleType { get; set; } = null!;
-
-        public string EngineType { get; set; } = null!;
-
-        public string? Description { get; set; }
+        public string? ImageUrl { get; set; }
     }
 }

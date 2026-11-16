@@ -131,6 +131,10 @@ namespace AutoMarket.Data.Migrations
                     b.Property<int>("EngineType")
                         .HasColumnType("int");
 
+                    b.Property<string>("ImageUrl")
+                        .HasMaxLength(2048)
+                        .HasColumnType("nvarchar(2048)");
+
                     b.Property<int?>("ManufactureMonth")
                         .HasColumnType("int");
 
