@@ -8,6 +8,9 @@
     {
         public void Configure(EntityTypeBuilder<Model> builder)
         {
+            builder.HasIndex(m => m.Name)
+                .IsUnique();
+
             builder.HasData(
                 new Model { Id = 1, Name = "A1", BrandId = 1 },
                 new Model { Id = 2, Name = "A3", BrandId = 1 },

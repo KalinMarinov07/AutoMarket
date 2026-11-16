@@ -8,6 +8,9 @@
     {
         public void Configure(EntityTypeBuilder<Brand> builder)
         {
+            builder.HasIndex(b => b.Name)
+                .IsUnique();
+
             builder.HasData(
                 new Brand { Id = 1, Name = "Audi" },
                 new Brand { Id = 2, Name = "BMW" },

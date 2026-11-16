@@ -36,6 +36,9 @@ namespace AutoMarket.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Brands");
 
                     b.HasData(
@@ -191,6 +194,9 @@ namespace AutoMarket.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Models");
 
