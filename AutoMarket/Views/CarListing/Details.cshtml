@@ -1,0 +1,110 @@
+﻿@using AutoMarket.ViewModels.CarListing
+@model CarListingDetailsViewModel
+
+@{
+    ViewData["Title"] = "Car Details";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/carDetails.css"
+          asp-append-version="true" />
+}
+
+<section class="details-section">
+    <div class="container details-container">
+
+        <a asp-controller="CarListing"
+           asp-action="Index"
+           class="details-back">
+            ← Back to All Cars
+        </a>
+
+        <div class="details-header">
+            <h1>@Model.BrandName @Model.ModelName</h1>
+            <p>Vehicle Details</p>
+        </div>
+
+        <div class="details-card">
+
+            <div class="details-image-container">
+                @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl"
+                         alt="@Model.BrandName @Model.ModelName"
+                         class="details-image" />
+                }
+                else
+                {
+                    <div class="details-image-placeholder">
+                        No Image Available
+                    </div>
+                }
+            </div>
+
+            <div class="details-content">
+
+                <div class="details-price-row">
+                    <div>
+                        <span class="details-label">Price</span>
+                        <h2 class="details-price">@Model.Price €</h2>
+                    </div>
+                </div>
+
+                <h3 class="details-subtitle">
+                    Vehicle Specifications
+                </h3>
+
+                <div class="details-specs">
+
+                    <div class="details-spec-item">
+                        <span>Brand</span>
+                        <strong>@Model.BrandName</strong>
+                    </div>
+
+                    <div class="details-spec-item">
+                        <span>Model</span>
+                        <strong>@Model.ModelName</strong>
+                    </div>
+
+                    <div class="details-spec-item">
+                        <span>Manufacture Date</span>
+                        <strong>@Model.ManufactureDate</strong>
+                    </div>
+
+                    <div class="details-spec-item">
+                        <span>Mileage</span>
+                        <strong>@Model.Mileage km</strong>
+                    </div>
+
+                    <div class="details-spec-item">
+                        <span>Engine Type</span>
+                        <strong>@Model.EngineType</strong>
+                    </div>
+
+                    <div class="details-spec-item">
+                        <span>Vehicle Type</span>
+                        <strong>@Model.VehicleType</strong>
+                    </div>
+
+                </div>
+
+                <div class="details-description">
+                    <h3 class="details-subtitle">Description</h3>
+
+                    <p>@Model.Description</p>
+                </div>
+
+                <div class="details-actions">
+                    <a asp-controller="CarListing"
+                       asp-action="Index"
+                       class="details-btn">
+                        Browse More Cars
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>

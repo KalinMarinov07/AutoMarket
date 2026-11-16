@@ -8,19 +8,31 @@
     public class CarListingController : Controller
     {
         private readonly ICarListingService carListingService;
-        private readonly AutoMarketDbContext dbContext;
 
-        public CarListingController(AutoMarketDbContext dbContext, ICarListingService carListingService)
+        public CarListingController(ICarListingService carListingService)
         {
-            this.dbContext = dbContext;
             this.carListingService = carListingService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             IEnumerable<CarListingIndexViewModel> allCarListings = await carListingService.GetCarListingsAsync();
 
             return View(allCarListings);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            CarListingDetailsViewModel? carListingDetails = await carListingService.GetCarListingDetailsAsync(id);
+
+            if (carListingDetails == null)
+            {
+                return BadRequest("Something was wrong with your request! Please try again!");
+            }
+
+            return View(carListingDetails);
         }
     }
 }

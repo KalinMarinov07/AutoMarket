@@ -6,5 +6,7 @@ namespace AutoMarket.Services.Core.Contracts
     public interface ICarListingService
     {
         Task<IEnumerable<CarListingIndexViewModel>> GetCarListingsAsync();
+
+        Task<CarListingDetailsViewModel?> GetCarListingDetailsAsync(int? id);
     }
 }
