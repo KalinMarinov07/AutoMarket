@@ -1,4 +1,6 @@
 using AutoMarket.Data;
+using AutoMarket.Services.Core.Contracts;
+using AutoMarket.Services.Core.Services;
 using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,8 @@ builder.Services.AddDbContext<AutoMarketDbContext>(opt =>
 {
     opt.UseSqlServer(connectionString);
 });
+
+builder.Services.AddScoped<ICarListingService, CarListingService>();
 
 builder.Services.AddControllersWithViews();
 
