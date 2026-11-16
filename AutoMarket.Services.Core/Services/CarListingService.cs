@@ -27,13 +27,8 @@
                     Id = c.Id,
                     BrandName = c.Model.Brand.Name,
                     ModelName = c.Model.Name,
-                    Price = c.Price,
-                    ManufactureDate = c.ManufactureMonth.HasValue ? $"{c.ManufactureMonth:D2}/{c.ManufactureYear}"
-                        : $"{c.ManufactureYear}",
-                    Mileage = c.Mileage,
-                    VehicleType = c.VehicleType.ToString(),
-                    EngineType = c.EngineType.ToString(),
-                    Description = c.Description,
+                    Price = c.Price.ToString("N2"),
+                    ImageUrl = c.ImageUrl
                 })
                 .Take(EntitiesPerPage)
                 .ToArrayAsync();

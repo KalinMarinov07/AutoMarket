@@ -1,0 +1,108 @@
+﻿@using AutoMarket.ViewModels.CarListing
+@model IEnumerable<CarListingIndexViewModel>
+
+@{
+    ViewData["Title"] = "Browse Cars";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/carListing.css"
+          asp-append-version="true" />
+}
+
+<section class="cars-section">
+    <div class="container-fluid cars-container">
+
+        <div class="cars-heading">
+            <h1>Browse All Cars</h1>
+            <p>Explore our collection of available vehicles</p>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="cars-empty">
+                <h3>No cars available yet.</h3>
+            </div>
+        }
+        else
+        {
+            <div class="row g-4">
+
+                @foreach (var car in Model)
+                {
+                    <div class="col-12 col-sm-6 col-lg-4">
+
+                        <div class="car-card">
+
+                            <a asp-controller="CarListing"
+                               asp-action="Details"
+                               asp-route-id="@car.Id"
+                               class="car-card-main">
+
+                                <div class="car-image-container">
+                                    @if (!string.IsNullOrWhiteSpace(car.ImageUrl))
+                                    {
+                                        <img src="@car.ImageUrl"
+                                             alt="@car.BrandName @car.ModelName"
+                                             class="car-image" />
+                                    }
+                                    else
+                                    {
+                                        <div class="car-image-placeholder">
+                                            No Image Available
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="car-card-body">
+
+                                    <h3 class="car-name">
+                                        @car.BrandName @car.ModelName
+                                    </h3>
+
+                                    <div class="car-price">
+                                        @car.Price €
+                                    </div>
+
+                                </div>
+                            </a>
+
+                            <div class="car-actions">
+
+                                <a asp-controller="CarListing"
+                                   asp-action="Details"
+                                   asp-route-id="@car.Id"
+                                   class="car-btn car-btn-details">
+                                    Details
+                                </a>
+
+                                <div class="car-actions-bottom">
+
+                                    <a asp-controller="CarListing"
+                                       asp-action="Edit"
+                                       asp-route-id="@car.Id"
+                                       class="car-btn car-btn-edit">
+                                        Edit
+                                    </a>
+
+                                    <a asp-controller="CarListing"
+                                       asp-action="Delete"
+                                       asp-route-id="@car.Id"
+                                       class="car-btn car-btn-delete">
+                                        Delete
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+        }
+
+    </div>
+</section>
