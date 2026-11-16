@@ -1,0 +1,129 @@
+﻿.hero-section {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 70px 25px;
+    background: transparent;
+    color: #ffffff;
+}
+
+.hero-content {
+    max-width: 850px;
+    width: 100%;
+    text-align: center;
+}
+
+.hero-label {
+    color: #60a5fa;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.hero-title {
+    font-size: clamp(38px, 5vw, 68px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 25px 0;
+    color: #ffffff;
+}
+
+    .hero-title span {
+        color: #60a5fa;
+    }
+
+.hero-description {
+    font-size: 18px;
+    color: #cbd5e1;
+    line-height: 1.8;
+    margin-bottom: 35px;
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.hero-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.hero-btn-primary {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+    .hero-btn-primary:hover {
+        background: #1d4ed8;
+        color: #ffffff;
+        transform: translateY(-3px);
+    }
+
+.hero-btn-secondary {
+    background: transparent;
+    border: 1px solid #64748b;
+    color: #ffffff;
+}
+
+    .hero-btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #ffffff;
+        color: #ffffff;
+        transform: translateY(-3px);
+    }
+
+.hero-features {
+    margin-top: 65px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 70vh;
+        padding: 50px 20px;
+    }
+
+    .hero-description {
+        font-size: 16px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-btn {
+        width: 100%;
+        max-width: 280px;
+        text-align: center;
+    }
+
+    .hero-features {
+        margin-top: 40px;
+        gap: 15px;
+    }
+}
+
+main:has(.hero-section) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-section {
+    flex: 1;
+}

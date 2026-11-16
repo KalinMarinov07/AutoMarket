@@ -1,8 +1,50 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
+
+<section class="hero-section">
+    <div class="hero-content">
+
+        <div class="hero-label">
+            Your Next Journey Starts Here
+        </div>
+
+        <h1 class="hero-title">
+            Find Your Perfect Car.<br />
+            <span>Drive Your Dream.</span>
+        </h1>
+
+        <p class="hero-description">
+            Explore a wide selection of vehicles and find the
+            perfect match for your lifestyle.
+            Your next adventure begins with AutoMarket.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a asp-controller="CarListing"
+               asp-action="Index"
+               class="hero-btn hero-btn-primary">
+                Browse All Cars
+            </a>
+
+            <a asp-controller="CarListing"
+               asp-action="Create"
+               class="hero-btn hero-btn-secondary">
+                + Add a Car Listing
+            </a>
+
+        </div>
+
+        <div class="hero-features">
+            <span>✓ Easy Browsing</span>
+            <span>✓ Wide Selection</span>
+            <span>✓ Simple Listings</span>
+        </div>
+
+    </div>
+</section>
