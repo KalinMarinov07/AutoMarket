@@ -156,5 +156,31 @@
 
             return carListingToEdit;
         }
+
+        public async Task<bool> EditCarListingAsync(int? id, CarListingInputModel inputModel)
+        {
+            CarListing? carListingToEdit = await dbContext.CarListings
+                .Where(c => c.Id == id)
+                .SingleOrDefaultAsync();
+
+            if (carListingToEdit == null)
+            {
+                return false;
+            }
+
+            carListingToEdit.ModelId = inputModel.ModelId;
+            carListingToEdit.VehicleType = inputModel.VehicleType;
+            carListingToEdit.EngineType = inputModel.EngineType;
+            carListingToEdit.ManufactureMonth = inputModel.ManufactureMonth;
+            carListingToEdit.ManufactureYear = inputModel.ManufactureYear;
+            carListingToEdit.Price = inputModel.Price;
+            carListingToEdit.Mileage = inputModel.Mileage;
+            carListingToEdit.ImageUrl = inputModel.ImageUrl;
+            carListingToEdit.Description = inputModel.Description;
+
+            await dbContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

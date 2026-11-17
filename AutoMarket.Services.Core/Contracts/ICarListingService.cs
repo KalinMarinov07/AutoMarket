@@ -22,5 +22,7 @@
         Task<bool> ModelBelongsToBrandAsync(CarListingInputModel inputModel);
 
         Task<CarListingInputModel?> GetCarListingForEditAsync(int? id);
+
+        Task<bool> EditCarListingAsync(int? id, CarListingInputModel inputModel);
     }
 }

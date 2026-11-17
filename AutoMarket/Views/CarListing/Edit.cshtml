@@ -1,0 +1,239 @@
+﻿@model CarListingInputModel
+
+@{
+    ViewData["Title"] = "Edit Car Listing";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/carCreate.css"
+          asp-append-version="true" />
+}
+
+<section class="create-section">
+    <div class="container create-container">
+
+        <div class="create-heading">
+            <h1>Edit Car Listing</h1>
+            <p>Update the details of your vehicle listing.</p>
+        </div>
+
+        <form asp-controller="CarListing"
+            asp-action="Edit"
+            asp-route-id="@ViewData["CarListingId"]"
+            method="post"
+            class="create-form">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3"></div>
+
+            <h2 class="form-section-title">Vehicle Information</h2>
+
+            <div class="row g-4">
+
+                <div class="col-md-6">
+                    <label asp-for="BrandId" class="form-label">
+                        Brand
+                    </label>
+
+                    <select asp-for="BrandId"
+                            id="brandSelect"
+                            class="form-select">
+
+                        <option value="">Select Brand</option>
+
+                        @foreach (var brand in Model.Brands)
+                        {
+                            <option value="@brand.Id">
+                                @brand.Name
+                            </option>
+                        }
+                    </select>
+
+                    <span asp-validation-for="BrandId"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="ModelId" class="form-label">
+                        Model
+                    </label>
+
+                    <select asp-for="ModelId"
+                            id="modelSelect"
+                            class="form-select">
+
+                        <option value="">Select Model</option>
+
+                        @foreach (var carModel in Model.Models)
+                        {
+                            <option value="@carModel.Id"
+                                    data-brand-id="@carModel.BrandId">
+                                @carModel.Name
+                            </option>
+                        }
+                    </select>
+
+                    <span asp-validation-for="ModelId"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="EngineType" class="form-label">
+                        Engine Type
+                    </label>
+
+                    <select asp-for="EngineType" class="form-select">
+                        <option value="Petrol">Petrol</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Electric">Electric</option>
+                        <option value="Hybrid">Hybrid</option>
+                        <option value="PlugInHybrid">PlugInHybrid</option>
+                    </select>
+
+                    <span asp-validation-for="EngineType"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="VehicleType" class="form-label">
+                        Vehicle Type
+                    </label>
+
+                    <select asp-for="VehicleType" class="form-select">
+                        <option value="Sedan">Sedan</option>
+                        <option value="Hatchback">Hatchback</option>
+                        <option value="SUV">SUV</option>
+                        <option value="Coupe">Coupe</option>
+                        <option value="Wagon">Wagon</option>
+                        <option value="Convertible">Convertible</option>
+                        <option value="Van">Van</option>
+                    </select>
+
+                    <span asp-validation-for="VehicleType"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="ManufactureYear" class="form-label">
+                        Manufacture Year
+                    </label>
+
+                    <input asp-for="ManufactureYear"
+                           type="number"
+                           min="1900"
+                           max="2100"
+                           class="form-control"
+                           placeholder="Enter manufacture year" />
+
+                    <span asp-validation-for="ManufactureYear"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="ManufactureMonth" class="form-label">
+                        Manufacture Month (Optional)
+                    </label>
+                
+                    <select asp-for="ManufactureMonth" class="form-select">
+                        <option value="">Select Month (Optional)</option>
+                
+                        @for (int month = 1; month <= 12; month++)
+                        {
+                            string monthName = new DateTime(2000, month, 1)
+                                .ToString("MMMM", System.Globalization.CultureInfo.InvariantCulture);
+                
+                            <option value="@month">@monthName</option>
+                        }
+                    </select>
+                
+                    <span asp-validation-for="ManufactureMonth"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Price" class="form-label">
+                        Price (€)
+                    </label>
+
+                    <input asp-for="Price"
+                           type="number"
+                           min="0"
+                           class="form-control"
+                           placeholder="Enter price" />
+
+                    <span asp-validation-for="Price"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Mileage" class="form-label">
+                        Mileage (km)
+                    </label>
+
+                    <input asp-for="Mileage"
+                           type="number"
+                           min="0"
+                           class="form-control"
+                           placeholder="Enter mileage" />
+
+                    <span asp-validation-for="Mileage"
+                          class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <h2 class="form-section-title mt-5">
+                Photos & Description
+            </h2>
+
+            <div class="mb-4">
+                <label asp-for="ImageUrl" class="form-label">
+                    Image URL
+                </label>
+
+                <input asp-for="ImageUrl"
+                       type="text"
+                       class="form-control"
+                       placeholder="/images/cars/audi-a5.jpg" />
+
+                <span asp-validation-for="ImageUrl"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Description" class="form-label">
+                    Description
+                </label>
+
+                <textarea asp-for="Description"
+                          class="form-control"
+                          rows="5"
+                          placeholder="Describe the vehicle..."></textarea>
+
+                <span asp-validation-for="Description"
+                      class="text-danger"></span>
+            </div>
+
+            <div class="create-actions">
+                <button type="submit" class="create-submit-btn">
+                    Confirm Changes
+                </button>
+
+                <a asp-controller="CarListing"
+                   asp-action="Index"
+                   class="create-cancel-btn">
+                    Cancel
+                </a>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/carCreate.js"
+            asp-append-version="true"></script>
+
+    <partial name="_ValidationScriptsPartial" />
+}

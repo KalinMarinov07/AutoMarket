@@ -57,7 +57,9 @@
             if (!await carListingService.BrandExistsAsync(inputModel))
             {
                 ModelState.AddModelError(nameof(CarListingInputModel.BrandId), "Invalid Brand selected!");
+
                 inputModel.Brands = await carListingService.LoadAllBrandsDropdownItemsAsync();
+                inputModel.Models = await carListingService.LoadAllModelsDropdownItemsAsync();
 
                 return View(inputModel);
             }
@@ -65,6 +67,8 @@
             if (!await carListingService.ModelBelongsToBrandAsync(inputModel))
             {
                 ModelState.AddModelError(nameof(CarListingInputModel.ModelId), "Invalid Model selected!");
+
+                inputModel.Brands = await carListingService.LoadAllBrandsDropdownItemsAsync();
                 inputModel.Models = await carListingService.LoadAllModelsDropdownItemsAsync();
 
                 return View(inputModel);
@@ -109,10 +113,71 @@
                 return NotFound("Car listing was not found!");
             }
 
+            ViewData["CarListingId"] = id;
+
             return View(carListingToEdit);
         }
 
         [HttpPost]
+        public async Task<IActionResult> Edit([FromRoute] int? id, CarListingInputModel inputModel)
+        {
+            if (!id.HasValue || id <= 0)
+            {
+                return BadRequest("There was something wrong with your request! Please try again!");
+            }
 
+            if (!await carListingService.BrandExistsAsync(inputModel))
+            {
+                ModelState.AddModelError(nameof(CarListingInputModel.BrandId), "Invalid Brand selected!");
+
+                inputModel.Brands = await carListingService.LoadAllBrandsDropdownItemsAsync();
+                inputModel.Models = await carListingService.LoadAllModelsDropdownItemsAsync();
+                ViewData["CarListingId"] = id;
+
+                return View(inputModel);
+            }
+
+            if (!await carListingService.ModelBelongsToBrandAsync(inputModel))
+            {
+                ModelState.AddModelError(nameof(CarListingInputModel.ModelId), "Invalid Model selected!");
+
+                inputModel.Brands = await carListingService.LoadAllBrandsDropdownItemsAsync();
+                inputModel.Models = await carListingService.LoadAllModelsDropdownItemsAsync();
+                ViewData["CarListingId"] = id;
+
+                return View(inputModel);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                inputModel.Brands = await carListingService.LoadAllBrandsDropdownItemsAsync();
+                inputModel.Models = await carListingService.LoadAllModelsDropdownItemsAsync();
+                ViewData["CarListingId"] = id;
+
+                return View(inputModel);
+            }
+
+            
+
+            try
+            {
+                bool isCarListingFound = await carListingService.EditCarListingAsync(id, inputModel);
+
+                if (!isCarListingFound)
+                {
+                    return NotFound("Car listing was not found!");
+                }
+
+                TempData["Success"] = "Successfully edited car listing!";
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Error occurred while trying to save valid car listing!");
+
+                TempData["Error"] = "Unexpected error occurred! Please try again!";
+            }
+
+            return RedirectToAction("Index", "CarListing");
+        }
     }
 }
