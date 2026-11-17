@@ -1,0 +1,204 @@
+﻿.create-section {
+    min-height: 80vh;
+    padding: 55px 20px 90px;
+    color: #ffffff;
+}
+
+.create-container {
+    max-width: 1000px;
+}
+
+.create-heading {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+    .create-heading h1 {
+        font-size: clamp(32px, 4vw, 46px);
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 12px;
+    }
+
+    .create-heading p {
+        font-size: 16px;
+        color: #94a3b8;
+    }
+
+.create-form {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 18px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.form-section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #60a5fa;
+    margin-bottom: 28px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #334155;
+}
+
+.create-form .form-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 10px;
+}
+
+.create-form .form-control,
+.create-form .form-select {
+    width: 100%;
+    min-height: 49px;
+    padding: 12px 15px;
+    background-color: #0f172a;
+    border: 1px solid #475569;
+    border-radius: 9px;
+    color: #ffffff;
+    font-size: 15px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .create-form .form-control::placeholder {
+        color: #64748b;
+    }
+
+    .create-form .form-control:focus,
+    .create-form .form-select:focus {
+        background-color: #0f172a;
+        border-color: #3b82f6;
+        color: #ffffff;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+    }
+
+    .create-form .form-select option {
+        background-color: #1e293b;
+        color: #ffffff;
+    }
+
+    .create-form .form-select:disabled {
+        background-color: #172033;
+        border-color: #334155;
+        color: #64748b;
+        cursor: not-allowed;
+    }
+
+.create-form textarea.form-control {
+    min-height: 145px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+.create-form .text-danger {
+    display: block;
+    color: #f87171 !important;
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+.create-form .input-validation-error {
+    border-color: #ef4444;
+}
+
+    .create-form .input-validation-error:focus {
+        border-color: #ef4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+
+.create-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 35px;
+    padding-top: 30px;
+    border-top: 1px solid #334155;
+}
+
+.create-submit-btn {
+    padding: 14px 30px;
+    background: #2563eb;
+    border: 1px solid #2563eb;
+    border-radius: 9px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+    .create-submit-btn:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+    }
+
+.create-cancel-btn {
+    display: inline-block;
+    padding: 14px 30px;
+    background: transparent;
+    border: 1px solid #64748b;
+    border-radius: 9px;
+    color: #cbd5e1;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+    .create-cancel-btn:hover {
+        background: #334155;
+        color: #ffffff;
+    }
+
+@media (max-width: 768px) {
+    .create-section {
+        padding: 35px 12px 60px;
+    }
+
+    .create-heading {
+        margin-bottom: 30px;
+    }
+
+    .create-form {
+        padding: 25px 20px;
+    }
+
+    .form-section-title {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .create-form {
+        padding: 22px 15px;
+    }
+
+    .create-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .create-submit-btn,
+    .create-cancel-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* REMOVE NUMBER INPUT ARROWS */
+
+.create-form input[type="number"]::-webkit-inner-spin-button,
+.create-form input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.create-form input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}

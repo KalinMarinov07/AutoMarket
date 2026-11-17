@@ -1,16 +1,20 @@
 ﻿namespace AutoMarket.Web.Controllers
 {
-    using AutoMarket.Data;
+    using AutoMarket.Data.Models;
     using AutoMarket.Services.Core.Contracts;
     using AutoMarket.ViewModels.CarListing;
     using Microsoft.AspNetCore.Mvc;
 
     public class CarListingController : Controller
     {
+        private readonly ILogger<CarListingController> logger;
+
         private readonly ICarListingService carListingService;
 
-        public CarListingController(ICarListingService carListingService)
+        public CarListingController(ILogger<CarListingController> logger, ICarListingService carListingService)
         {
+            this.logger = logger;
+
             this.carListingService = carListingService;
         }
 
@@ -23,7 +27,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details([FromRoute]int? id)
         {
             CarListingDetailsViewModel? carListingDetails = await carListingService.GetCarListingDetailsAsync(id);
 
@@ -34,5 +38,81 @@
 
             return View(carListingDetails);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            CarListingInputModel newCarListing = new CarListingInputModel
+            {
+                Brands = await carListingService.LoadAllBrandsDropdownItemsAsync(),
+                Models = await carListingService.LoadAllModelsDropdownItemsAsync(),
+            };
+
+            return View(newCarListing);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(CarListingInputModel inputModel)
+        {
+            if (!await carListingService.BrandExistsAsync(inputModel))
+            {
+                ModelState.AddModelError(nameof(CarListingInputModel.BrandId), "Invalid Brand selected!");
+                inputModel.Brands = await carListingService.LoadAllBrandsDropdownItemsAsync();
+
+                return View(inputModel);
+            }
+
+            if (!await carListingService.ModelBelongsToBrandAsync(inputModel))
+            {
+                ModelState.AddModelError(nameof(CarListingInputModel.ModelId), "Invalid Model selected!");
+                inputModel.Models = await carListingService.LoadAllModelsDropdownItemsAsync();
+
+                return View(inputModel);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                inputModel.Brands = await carListingService.LoadAllBrandsDropdownItemsAsync();
+                inputModel.Models = await carListingService.LoadAllModelsDropdownItemsAsync();
+
+                return View(inputModel);
+            }
+
+            try
+            {
+                await carListingService.AddNewCarListingAsync(inputModel);
+
+                TempData["Success"] = "Successfully added a new car listing!";
+            }
+            catch (Exception ex)
+            {
+                logger.LogCritical("Error occurred while trying to save valid car listing!");
+
+                TempData["Error"] = "Unexpected error occurred! Please try again!";
+            }
+
+            return RedirectToAction("Index", "CarListing");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit([FromRoute]int? id)
+        {
+            if (!id.HasValue || id <= 0)
+            {
+                return BadRequest("There was something wrong with your request! Please try again!");
+            }
+
+            CarListingInputModel? carListingToEdit = await carListingService.GetCarListingForEditAsync(id);
+
+            if (carListingToEdit == null)
+            {
+                return NotFound("Car listing was not found!");
+            }
+
+            return View(carListingToEdit);
+        }
+
+        [HttpPost]
+
     }
 }
