@@ -1,0 +1,82 @@
+﻿@model CarListingDeleteViewModel
+
+@{
+    ViewData["Title"] = "Delete Car Listing";
+}
+
+@section Styles {
+    <link rel="stylesheet"
+          href="~/css/carDelete.css"
+          asp-append-version="true" />
+}
+
+<section class="delete-section">
+    <div class="container delete-container">
+
+        <div class="delete-heading">
+            <h1>Delete Car Listing</h1>
+            <p>Are you sure you want to delete this vehicle?</p>
+        </div>
+
+        <div class="delete-card">
+
+            <div class="delete-image-container">
+                @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl"
+                         alt="@Model.BrandName @Model.ModelName"
+                         class="delete-image" />
+                }
+                else
+                {
+                    <div class="delete-image-placeholder">
+                        No Image Available
+                    </div>
+                }
+            </div>
+
+            <div class="delete-content">
+
+                <div class="delete-warning">
+                    <strong>Warning!</strong>
+                    <p>
+                        This action cannot be undone.
+                        The car listing will be permanently deleted.
+                    </p>
+                </div>
+
+                <h2 class="delete-car-title">
+                    @Model.BrandName @Model.ModelName
+                </h2>
+
+                <div class="delete-car-info">
+                    <span>Manufacture Year</span>
+                    <strong>@Model.ManufactureDate</strong>
+                </div>
+
+                <form asp-controller="CarListing"
+                      asp-action="Delete"
+                      asp-route-id="@Model.Id"
+                      method="post">
+
+                    <div class="delete-actions">
+                        <button type="submit"
+                                class="delete-confirm-btn">
+                            Yes, Delete Listing
+                        </button>
+
+                        <a asp-controller="CarListing"
+                           asp-action="Details"
+                           asp-route-id="@Model.Id"
+                           class="delete-cancel-btn">
+                            Cancel
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</section>

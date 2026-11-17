@@ -24,5 +24,9 @@
         Task<CarListingInputModel?> GetCarListingForEditAsync(int? id);
 
         Task<bool> EditCarListingAsync(int? id, CarListingInputModel inputModel);
+
+        Task<CarListingDeleteViewModel?> GetCarListingForDeleteAsync(int? id);
+
+        Task<bool> DeleteCarListingAsync(int? id, CarListingDeleteViewModel deleteViewModel);
     }
 }

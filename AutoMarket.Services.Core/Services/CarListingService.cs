@@ -160,8 +160,7 @@
         public async Task<bool> EditCarListingAsync(int? id, CarListingInputModel inputModel)
         {
             CarListing? carListingToEdit = await dbContext.CarListings
-                .Where(c => c.Id == id)
-                .SingleOrDefaultAsync();
+                .SingleOrDefaultAsync(c => c.Id == id);
 
             if (carListingToEdit == null)
             {
@@ -178,6 +177,43 @@
             carListingToEdit.ImageUrl = inputModel.ImageUrl;
             carListingToEdit.Description = inputModel.Description;
 
+            await dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<CarListingDeleteViewModel?> GetCarListingForDeleteAsync(int? id)
+        {
+            CarListingDeleteViewModel? carListingToDelete = await dbContext.CarListings
+                .Select(c => new CarListingDeleteViewModel
+                {
+                    Id = c.Id,
+                    BrandName = c.Model.Brand.Name,
+                    ModelName = c.Model.Name,
+                    ManufactureDate = c.ManufactureMonth != null ? $"{c.ManufactureMonth:D2}/{c.ManufactureYear}" : $"{c.ManufactureYear}",
+                    ImageUrl = c.ImageUrl
+                })
+                .SingleOrDefaultAsync(c => c.Id  == id);
+
+            if (carListingToDelete == null)
+            {
+                return null;
+            }
+
+            return carListingToDelete;
+        }
+
+        public async Task<bool> DeleteCarListingAsync(int? id, CarListingDeleteViewModel deleteViewModel)
+        {
+            CarListing? carListingToDelete = await dbContext.CarListings
+                .SingleOrDefaultAsync(c => c.Id == id);
+
+            if (carListingToDelete == null)
+            {
+                return false;
+            }
+
+            dbContext.Remove(carListingToDelete);
             await dbContext.SaveChangesAsync();
 
             return true;

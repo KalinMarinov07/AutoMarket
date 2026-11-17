@@ -90,7 +90,7 @@
             }
             catch (Exception ex)
             {
-                logger.LogCritical("Error occurred while trying to save valid car listing!");
+                logger.LogError("Error occurred while trying to save valid car listing!");
 
                 TempData["Error"] = "Unexpected error occurred! Please try again!";
             }
@@ -172,6 +172,56 @@
             }
             catch (Exception ex)
             {
+                logger.LogError("Error occurred while trying to save valid car listing!");
+
+                TempData["Error"] = "Unexpected error occurred! Please try again!";
+            }
+
+            return RedirectToAction("Index", "CarListing");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete([FromRoute]int? id)
+        {
+            if (!id.HasValue || id <= 0)
+            {
+                return BadRequest("There was something wrong with your request! Please try again!");
+            }
+
+            CarListingDeleteViewModel? carListingToDelete = await carListingService.GetCarListingForDeleteAsync(id);
+
+            if (carListingToDelete == null)
+            {
+                return NotFound("Car listing was not found!");
+            }
+
+            ViewData["CarListingId"] = id;
+
+            return View(carListingToDelete);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromRoute]int? id, CarListingDeleteViewModel deleteViewModel)
+        {
+            if (!id.HasValue || id <= 0 || id != deleteViewModel.Id)
+            {
+                return BadRequest("There was something wrong with your request! Please try again!");
+            }
+
+            try
+            {
+                bool isCarListingFound = await carListingService.DeleteCarListingAsync(id, deleteViewModel);
+
+                if (!isCarListingFound)
+                {
+                    return NotFound("Car listing was not found!");
+                }
+
+                TempData["Success"] = "Successfully deleted car listing!";
+            }
+            catch (Exception ex)
+            {
+
                 logger.LogError("Error occurred while trying to save valid car listing!");
 
                 TempData["Error"] = "Unexpected error occurred! Please try again!";
