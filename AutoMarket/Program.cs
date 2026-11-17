@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-string connectionString = builder.Configuration.GetConnectionString("SqlServerDev")
-                         ?? throw new InvalidOperationException("Connection string 'SqlServerDev' was not found! Please try again");
+string connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                         ?? throw new InvalidOperationException("Connection string 'DefaultConnection' was not found! Please try again");
 
 builder.Services.AddDbContext<AutoMarketDbContext>(opt =>
 {
